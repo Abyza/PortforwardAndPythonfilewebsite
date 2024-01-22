@@ -11,8 +11,8 @@ site of pldt router settings with admin priviledged
 https://192.168.1.1/PLDTadminLogin
 
 this is your credentials dont share this
-username: adminpldt
-pass Hello1432!
+username: sampleusername
+pass: samplepass
 
 step 1 run your server in your device 
 
