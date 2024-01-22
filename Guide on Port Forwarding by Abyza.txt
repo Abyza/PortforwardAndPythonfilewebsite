@@ -1,0 +1,82 @@
+Guide on Port Forwarding
+by: Abyza
+
+site to know your public IP:
+https://whatismyipaddress.com/
+
+site to check if the port you opened is open:
+https://www.portchecktool.com/
+
+site of pldt router settings with admin priviledged
+https://192.168.1.1/PLDTadminLogin
+
+this is your credentials dont share this
+username: adminpldt
+pass Hello1432!
+
+step 1 run your server in your device 
+
+below is a sample of a website using only 1 python file you can run it on pycharm 
+the port number must be within the usable range
+
+import socket
+
+HOST = '0.0.0.0'
+PORT = 12345
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind((HOST, PORT))
+server_socket.listen(5)
+
+print(f"Server is listening on port {PORT}...")
+
+while True:
+    client_socket, addr = server_socket.accept()
+    print(f"Connection from {addr}")
+
+    # Define a basic HTML response
+    html_response = """HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n
+    <html>
+    <head><title>Hello</title></head>
+    <body>
+    <h1>mendoza chat mo sakin 0967 code yan bago na para malaman kung gumagana</h1>
+    </body>
+    </html>
+    """
+
+    # Send the HTML response to the client
+    client_socket.sendall(html_response.encode('utf-8'))
+
+    # Close the connection with the client
+    client_socket.close()
+
+step 2 navigate the router UI
+
+- click internet
+- then security
+- navigate to the right inside security click port forward
+- make a port forward item 
+
+following are the values that can work
+
+name : web1
+protocol: TCP And UDP
+wan connection: Internet_tr069_wan
+wan host ip address : 0.0.0.0-0.0.0.0
+lan host 192.168.1.3(this should be same to the private ip of the device where the python server is running)
+wan port: 5000- 5000 (this should be in the possible range also we can have 5000-6000 for example so that when users type [public ip] + :[any number between the wan port range] it will all go to the lan host port)
+lan host port : 12345-12345 (this should be the same port as in the python file port, this does not have to be the same port number as the wan port but i can be same if you want to, you can also range this but each port forward connection mush only have 1 port that works example you have range of 10-20 in lan host port and you have 2 servers in the same device port 10 and port 11 both of them in the same range you can be sure where it will connect)
+note: so if you want to have 2 connection seperately make another port forward create new item
+
+dont forget to switch on on this item and hit apply as well
+
+step 3 set the dmz
+-turn it on
+- select internet_tr069_wan for wan connection
+- lan host click select from the associated device (select the device that run your server)
+- it may still work if DMZ is off but i recommend to turn it on since based from research it can help in network security, actually the device that is in DMZ means it is directly connected to the internet so that device is at risk, better to turn DMZ off since in this server eaxmple it works even if the DMZ is off but if it does not work try turining DMZ  on then ones it works turn it off again see if it still continues to work.
+
+
+Note: you cant view or use your port in the device where the server is running, you have to check it using mobile data since it would mean a different network
+
+
